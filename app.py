@@ -13,15 +13,12 @@ colors = {
     'text': '#7FDBFF'
 }
 
-# assume you have a "long-form" data frame
-# see https://plotly.com/python/px-arguments/ for more options
-df = pd.DataFrame({
-    "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
-    "Amount": [4, 1, 2, 2, 4, 5],
-    "City": ["SF", "NYC", "London", "Montreal", "Montreal", "Montreal"]
-})
+# Load the CSV file that contains the city data
+# 'usecols' specifies only the columns I want to be read in
+# 'nrows' reads the first 50 rows into frame
+df_csv = pd.read_csv('./data/uscities.csv', usecols=['city', 'state_id', 'population', 'density'], nrows=50)
 
-fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
+fig = px.bar(df_csv, x="city", y="population", color="density", barmode="group")
 
 fig.update_layout(
     plot_bgcolor=colors['background'],
