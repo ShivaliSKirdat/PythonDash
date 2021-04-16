@@ -3,10 +3,14 @@ import dash_core_components as dcc
 import dash_html_components as html
 import pandas as pd
 import plotly.express as px
+import flask
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+# set a variable to use the Flask server
+server = flask.Flask(__name__)
+# Pass the Flask server into Dash to be called
+app = dash.Dash(__name__,  server=server, external_stylesheets=external_stylesheets)
 
 colors = {
     'background': '#111111',
