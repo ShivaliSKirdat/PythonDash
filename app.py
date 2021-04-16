@@ -39,19 +39,31 @@ app.layout = html.Div(children=[
         }
     ),
 
+    html.A(
+        href='https://simplemaps.com/data/us-cities', 
+        children='''
+            Data provided by simplemaps.com
+        ''',
+        style={
+            'display': 'flex',
+            'justifyContent': 'center',
+            'color': colors['text'],
+        },
+    ),
+
     html.Div(
         children='''
-            Data provided by https://simplemaps.com/data/us-cities
-        ''', 
-    style={
-        'textAlign': 'center',
-        'color': colors['text'],
-    }),
+            An outlook on US City total population and density(per sq. mile)
+        ''',
+        style={
+            'textAlign': 'center',
+            'color': colors['text'],
+        }),
 
-    dcc.Graph(
-        id='example-graph',
-        figure=fig
-    )
+        dcc.Graph(
+            id='example-graph',
+            figure=fig
+        )
 ])
 
 if __name__ == '__main__':
