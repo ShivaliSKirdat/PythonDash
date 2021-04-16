@@ -1,9 +1,9 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import flask
 import pandas as pd
 import plotly.express as px
-import flask
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -22,7 +22,7 @@ colors = {
 # 'nrows' reads the first 50 rows into frame
 df_csv = pd.read_csv('./data/uscities.csv', usecols=['city', 'state_id', 'population', 'density'], nrows=50)
 
-fig = px.bar(df_csv, x="city", y="population", color="density", barmode="group")
+fig = px.bar(df_csv, x="city", y="population", color="density", barmode="group", labels={'density': 'Density per sq. mile', 'population': 'Population', 'city': 'City'})
 
 fig.update_layout(
     plot_bgcolor=colors['background'],
@@ -32,7 +32,7 @@ fig.update_layout(
 
 app.layout = html.Div(children=[
     html.H1(
-        children='Hello Dash',
+        children='US City Population and Density',
         style={
             'textAlign': 'center',
             'color': colors['text']
@@ -41,11 +41,11 @@ app.layout = html.Div(children=[
 
     html.Div(
         children='''
-            Dash: A web application framework for Python.
+            Data provided by https://simplemaps.com/data/us-cities
         ''', 
     style={
         'textAlign': 'center',
-        'color': colors['text']
+        'color': colors['text'],
     }),
 
     dcc.Graph(
