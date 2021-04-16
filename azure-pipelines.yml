@@ -1,0 +1,56 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'f011bb1b-7f11-4186-8e8e-89ad72d21f32'
+  imageRepository: 'pythondash'
+  containerRegistry: 'ansalemocontainerregistry.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
+  webApp: 'ansalemo-python-dash'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+- stage: Deploy
+  displayName: Azure App Service Deploy
+  jobs: 
+  - job: Deploy
+    displayName: Deploy
+    steps:
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Ansalemo(4388fa06-bf66-4497-82c2-991ba75ecb97)'
+        appType: 'webAppContainer'
+        AppSettings: '-WEBSITES_PORT 8080'
+        WebAppName: $(webApp)
+        DockerNamespace: $(containerRegistry) 
+        DockerRepository: $(imageRepository) 
+        DockerImageTag: $(tag)
