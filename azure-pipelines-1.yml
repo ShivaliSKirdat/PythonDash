@@ -15,7 +15,7 @@ variables:
   containerRegistry: 'ansalemocontainerregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
-  webApp: 'ansalemo-python-dash-ansalemo-python-dash-staging'
+  webApp: 'ansalemo-python-dash-staging'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
