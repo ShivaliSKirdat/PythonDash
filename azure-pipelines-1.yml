@@ -15,7 +15,7 @@ variables:
   containerRegistry: 'ansalemocontainerregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
-  webApp: 'ansalemo-python-dash'
+  webApp: 'ansalemo-python-dash-staging'
   webAppSlot: 'ansalemo-python-dash-staging'
 
   # Agent VM image name
@@ -53,9 +53,9 @@ stages:
         appType: 'webAppContainer'
         AppSettings: '-WEBSITES_PORT 8080'
         WebAppName: $(webApp)
-        deployToSlotOrASE: true
+        # deployToSlotOrASE: true
         ResourceGroupName: 'ansalemo-rg'
-        SlotName: $(webAppSlot)
+        # SlotName: $(webAppSlot)
         DockerNamespace: $(containerRegistry) 
         DockerRepository: $(imageRepository) 
         DockerImageTag: $(tag)
