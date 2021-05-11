@@ -54,3 +54,5 @@ stages:
         DockerNamespace: $(containerRegistry) 
         DockerRepository: $(imageRepository) 
         DockerImageTag: $(tag)
+        deployToSlotOrASE: true
+        SlotName: 'staging'
