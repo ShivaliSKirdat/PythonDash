@@ -56,3 +56,5 @@ stages:
         DockerImageTag: $(tag)
         deployToSlotOrASE: true
         SlotName: 'staging'
+        ResourceGroupName: 'ansalemo-rg'
+
