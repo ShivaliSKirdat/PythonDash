@@ -32,7 +32,7 @@ fig.update_layout(
 
 app.layout = html.Div(children=[
     html.H1(
-        children='US City Population and Density',
+        children='US City Population and Density (staging)',
         style={
             'textAlign': 'center',
             'color': colors['text']
