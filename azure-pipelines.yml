@@ -54,7 +54,8 @@ stages:
         DockerNamespace: $(containerRegistry) 
         DockerRepository: $(imageRepository) 
         DockerImageTag: $(tag)
-        deployToSlotOrASE: true
-        SlotName: 'staging'
+        # If we want to deploy this to a slot we can use the 2 below commented properties
+        # deployToSlotOrASE: true
+        # SlotName: 'staging'
         ResourceGroupName: 'ansalemo-rg'
 
